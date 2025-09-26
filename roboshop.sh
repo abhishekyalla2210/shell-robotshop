@@ -6,7 +6,7 @@ G="\e[32m"
 Y="\e[33m"
 W="\e[34m"
 
-LOGS="/var/log/shell-script"
+LOGS="/var/log/shell-robotshop"
 SCRIPTNAME=$( echo $0 | cut -d "." -f1 )
 LOGFILE="$LOGS/$SCRIPTNAME.log" 
 
