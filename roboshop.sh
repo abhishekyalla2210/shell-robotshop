@@ -27,6 +27,15 @@ VALIDATE(){ # functions receive inputs through args just like shell script args
         echo -e " $2 ... $G SUCCESS $N"
     fi
 }
+cat /etc/yum.repos.d/mongo.repo
+[mongodb-org-7.0]
+name=MongoDB Repository
+baseurl=https://repo.mongodb.org/yum/amazon/2/mongodb-org/7.0/x86_64/
+gpgcheck=1
+enabled=1
+gpgkey=https://www.mongodb.org/static/pgp/server-7.0.asc
+VALIDATE $? "adding the repo"
+
 
 cp mongo.repo /etc/yum.repos.d/mongo.repo
 VALIDATE $? "adding the repo"
