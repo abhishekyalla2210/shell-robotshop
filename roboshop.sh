@@ -10,7 +10,7 @@ LOGS="/var/log/shell-robotshop"
 SCRIPTNAME=$( echo $0 | cut -d "." -f1 )
 LOGFILE="$LOGS/$SCRIPTNAME.log" 
 
-mkdir   -p  $LOGFILE
+mkdir   -p  $LOGS
 echo "script start at: $(date)"
 
 
