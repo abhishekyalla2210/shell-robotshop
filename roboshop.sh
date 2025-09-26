@@ -1,18 +1,36 @@
 #!/bin/bash
-AIM_ID="ami-09c813fb71547fc4f"
-SG_ID="sg-03c6dffbde757a30b"
+
+USERID=$(id -u)
+R="\e[31m"
+G="\e[32m"
+Y="\e[33m"
+W="\e[34m"
+
+LOGS="/var/log/shell-script"
+SCRIPTNAME=$( echo $0 | cut -d "." -f1 )
+LOGFILE="$LOGS/$SCRIPTNAME.log" 
+
+mkdir   -p  $LOGFILE
+echo "script start at: $(date)"
 
 
-for instance in $@
-do
-    INSTANCE_ID=$(aws ec2 run-instances --image-id $AIM_ID --instance-type t3.micro --security-group-ids $SG_ID --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=$instance}]" --query 'Instances[0].InstanceId' --output text)
+if [ $USERID -ne 0 ]; then
+    echo -e " $R please login with root access $N"
+    exit 1
+fi
 
-    if [ $instance != "frontend" ]; then
-    
-        IP=$(aws ec2 describe-instances --instance-ids $INSTANCE_ID --query "Reservations[0].Instances[0].PrivateIpAddress" --output text)
-        else
-             IP=$(aws ec2 describe-instances --instance-ids $INSTANCE_ID --query "Reservations[0].Instances[0].PublicIpAddress" --output text)
-            fi
-            echo "$instance: $IP"
-done
-    
+VALIDATE(){ # functions receive inputs through args just like shell script args
+    if [ $1 -ne 0 ]; then
+        echo -e " $2 ... $R FAILURE $N" 
+        exit 1
+    else
+        echo -e " $2 ... $G SUCCESS $N"
+    fi
+}
+
+cp mongo.repo /etc/yum.reps.d/mongo.repo
+VALIDATE $? "adding the repo"
+
+dnf install mongodb-org -y&>>$LOGFILE
+VALIDATE $? "mongodb installation"
+
