@@ -28,7 +28,7 @@ VALIDATE(){ # functions receive inputs through args just like shell script args
     fi
 }
 
-cp mongo.repo /etc/yum.reps.d/mongo.repo
+cp mongo.repo /etc/yum.repos.d/mongo.repo
 VALIDATE $? "adding the repo"
 
 dnf install mongodb-org -y&>>$LOGFILE
