@@ -18,7 +18,7 @@ MONGODB_HOST=mongodb.abhishekdev.fun
 mkdir -p $LOGS
 echo "script start at: $(date)" &>>$LOG_FILE
 
-if [ $USER_ID -ne 0]; then
+if [ $USER_ID -ne 0 ]; then
     echo -e $R "please login with root access $N"
     exit 1
 fi
