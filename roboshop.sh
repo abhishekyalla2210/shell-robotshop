@@ -34,8 +34,8 @@ VALIDATE $? "adding the repo"
 dnf install mongodb-org -y &>>$LOGFILE
 VALIDATE $? "mongodb installation"
 
-dnf enable mongodb
-VALIDATE $? "enaled mongodb"
+dnf enable mongod
+VALIDATE $? "enabled mongodb"
 
-dnf start mongodb
+dnf start mongod
 VALIDATE $? "started mongodb"
