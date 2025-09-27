@@ -1,6 +1,5 @@
 #!/bin/bash
 
-USER_ID=$(id -u)
 
 AMI="ami-09c813fb71547fc4f"
 SG_ID="sg-03c6dffbde757a30b"
