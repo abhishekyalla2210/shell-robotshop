@@ -32,6 +32,7 @@ VALIDATE(){
         echo -e "$2 ...$G success $N"
     if
 }
+
 dnf module disable nodejs -y  &>>$LOG_FILE
 VALIDATE $? "disabled"
 dnf module enable nodejs:20 -y  &>>$LOG_FILE
