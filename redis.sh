@@ -38,8 +38,9 @@ VALIDATE $? "installing redis"
 sed -i 's/127.0.0.1/0.0.0.0/g' /etc/redis/redis.conf
 VALIDATE $? "changed remote"
 
-sed -i ' /protected-mode/c protected-mode no g' /etc/redis/redis.conf
+sed -i '/protected-mode/c protected-mode no'g /etc/redis/redis.conf
 VALIDATE $? "protect mode"
+systemcl daemon-reload 
 systemctl enable redis 
 VALIDATE $? "enabled"
 systemctl start redis 
