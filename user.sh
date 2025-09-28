@@ -50,8 +50,7 @@ fi
 
 mkdir -p /app
 VALIDATE $? "created dir"
-curl -L -o /tmp/user.zip https://roboshop-artifacts.s3.amazonaws.com/user
--v3.zip &>>$LOG_FILE
+curl -L -o /tmp/user.zip https://roboshop-artifacts.s3.amazonaws.com/user-v3.zip  &>>$LOG_FILE
 VALIDATE $? "download"
 cd /app 
 VALIDATE $? "changed to dir"
