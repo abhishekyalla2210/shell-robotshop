@@ -38,9 +38,16 @@ else
     echo -e "user already exist...$Y skipping $N"
 
 fi
+#!/bin/bash
 
-mkdir /app 
-VALIDATE $? "made directory"
+if [ -d "/app" ]; then
+    echo "Directory exists"
+else
+    mkdir /app
+fi
+
+
+
 
 curl -L -o /tmp/shipping.zip https://roboshop-artifacts.s3.amazonaws.com/shipping-v3.zip 
 VALIDATE $? "downloaded"
