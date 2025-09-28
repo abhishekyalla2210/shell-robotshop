@@ -32,8 +32,12 @@ VALIDATE(){
 dnf install maven -y
 VALIDATE $? "installed"
 
+if [ $? -ne 0]; then
 useradd --system --home /app --shell /sbin/nologin --comment "roboshop system user" roboshop
-VALIDATE $? "added system user"
+
+fi
+
+
 
 mkdir /app 
 VALIDATE $? "made directory"
