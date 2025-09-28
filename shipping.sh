@@ -62,7 +62,9 @@ VALIDATE $? "shipping started"
 
 
 dnf install mysql -y &>>$LOGFILE
+
 VALIDATE $? "installed mysql"
+
 mysql -h $MYSQL_IP -uroot -pRoboShop@1 -e 'use cities' &>>$LOGFILE
 
 if [ $? -ne 0]; then

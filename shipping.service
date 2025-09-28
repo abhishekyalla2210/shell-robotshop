@@ -1,13 +1,15 @@
 [Unit]
 Description=Shipping Service
+After=network.target
 
 [Service]
 User=roboshop
-// highlight-start
-Environment=CART_ENDPOINT=cart.abhishekdev.fun:8080
-Environment=DB_HOST=mysql.abhishekdev.fun
-// highlight-end
-ExecStart=/bin/java -jar /app/shipping.jar
+Group=roboshop
+WorkingDirectory=/app
+Environment="CART_ENDPOINT=cart.abhishekdev.fun:8080"
+Environment="DB_HOST=mysql.abhishekdev.fun"
+ExecStart=/usr/bin/java -jar /app/shipping.jar
+Restart=always
 SyslogIdentifier=shipping
 
 [Install]

@@ -35,14 +35,8 @@ VALIDATE(){
 dnf install python3 gcc python3-devel -y &>>$LOG_FILE
 VALIDATE $? "looking"
 
-if id roboshop &>/dev/null; then
-    echo "User roboshop already exists" &>>$LOG_FILE
-else
-    useradd --system --home /app -m --shell /sbin/nologin --comment "roboshop system user" roboshop &>>$LOG_FILE
-    VALIDATE $? "create roboshop user"
-fi
-
-
+ useradd --system --home /app -m --shell /sbin/nologin --comment "roboshop system user" roboshop &>>$LOG_FILE
+VALIDATE $? "create roboshop user"
 
 
 mkdir /app 
