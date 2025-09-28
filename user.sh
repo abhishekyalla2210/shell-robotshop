@@ -56,8 +56,7 @@ cd /app
 VALIDATE $? "changed to dir"
 rm -rf /app/*
 VALIDATE $? "removing old code"
-unzip /tmp/user
-.zip &>>$LOG_FILE
+unzip /tmp/user.zip &>>$LOG_FILE
 VALIDATE $? "unzip user"
 
 npm install &>>$LOG_FILE
