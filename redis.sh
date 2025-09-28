@@ -40,7 +40,7 @@ VALIDATE $? "changed remote"
 
 sed -i '/protected-mode/c protected-mode no'g /etc/redis/redis.conf
 VALIDATE $? "protect mode"
-systemcl daemon-reload 
+systemctl daemon-reload 
 systemctl enable redis 
 VALIDATE $? "enabled"
 systemctl start redis 
