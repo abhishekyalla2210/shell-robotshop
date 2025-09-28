@@ -29,30 +29,26 @@ VALIDATE(){
         echo -e " $2 ... $G SUCCESS $N"
     fi
 }
-dnf install maven -y
+dnf install maven -y &>>$LOGFILE
 VALIDATE $? "installed"
 
-if [ $? -ne 0]; then
-useradd --system --home /app --shell /sbin/nologin --comment "roboshop system user" roboshop
-
-fi
-
-
+useradd --system --home /app --shell /sbin/nologin --comment "roboshop system user" roboshop &>>$LOGFILE
+VALIDATE $? "added system user"
 
 mkdir /app 
 VALIDATE $? "made directory"
 
-curl -L -o /tmp/shipping.zip https://roboshop-artifacts.s3.amazonaws.com/shipping-v3.zip 
+curl -L -o /tmp/shipping.zip https://roboshop-artifacts.s3.amazonaws.com/shipping-v3.zip &>>$LOGFILE
 VALIDATE $? "downloaded"
 
 cd /app 
 unzip /tmp/shipping.zip
 VALIDATE $? "unzipped"
 cd /app 
-mvn clean package 
+mvn clean package &>>$LOGFILE
 VALIDATE $? "cleaned"
 
-cp $SCRIPT_DIR/shipping.service /etc/systemd/system/shipping.service
+cp $SCRIPT_DIR/shipping.service /etc/systemd/system/shipping.service &>>$LOGFILE
 VALIDATE "copied shipping service" 
 
 systemctl daemon-reload
@@ -65,3 +61,15 @@ systemctl start shipping
 VALIDATE $? "shipping started"
 
 
+dnf install mysql -y &>>$LOGFILE
+VALIDATE $? "installed mysql"
+mysql -h $MYSQL_IP -uroot -pRoboShop@1 -e 'use cities' &>>$LOGFILE
+
+if [ $? -ne 0]; then
+    mysql -h $MYSQL_IP -uroot -pRoboShop@1 < /app/db/schema.sql &>>$LOGFILE
+    mysql -h $MYSQL_IP -uroot -pRoboShop@1 < /app/db/app-user.sql  &>>$LOGFILE
+    mysql -h $MYSQL_IP -uroot -pRoboShop@1 < /app/db/master-data.sql &>>$LOGFILE
+else
+    echo "shipping data already exist ...$Y skipping $N"
+fi
+systemctl restart shipping
