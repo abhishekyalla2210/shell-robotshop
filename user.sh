@@ -61,9 +61,7 @@ VALIDATE $? "unzip user"
 
 npm install &>>$LOG_FILE
 VALIDATE $? "installed npm"
-cp $SCRIPT_DIR/user
-.service /etc/systemd/system/user
-.service
+cp $SCRIPT_DIR/user.service /etc/systemd/system/user.service
 VALIDATE $? "copied"
 systemctl daemon-reload
 VALIDATE $? "reloading"
