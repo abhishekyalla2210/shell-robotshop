@@ -34,8 +34,8 @@ VALIDATE $? "installed"
 
 id roboshop
 if [ $? -ne 0 ]; then
-    useradd --system --home /app --shell /sbin/nologin --comment "roboshop system user" roboshop  &>>$LOG_FILE
-    VALIDATE $? "creating system user" 
+useradd --system --home /app --shell /sbin/nologin --comment "roboshop system user" roboshop
+     
 else
     echo -e "user already exist...$Y skipping $N"
 
