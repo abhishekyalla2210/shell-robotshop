@@ -32,8 +32,14 @@ VALIDATE(){
 dnf install maven -y &>>$LOGFILE
 VALIDATE $? "installed"
 
-useradd --system --home /app --shell /sbin/nologin --comment "roboshop system user" roboshop &>>$LOGFILE
-VALIDATE $? "added system user"
+id roboshop
+if [ $? -ne 0 ]; then
+    useradd --system --home /app --shell /sbin/nologin --comment "roboshop system user" roboshop  &>>$LOG_FILE
+    VALIDATE $? "creating system user" 
+else
+    echo -e "user already exist...$Y skipping $N"
+
+fi
 
 mkdir /app 
 VALIDATE $? "made directory"
@@ -42,6 +48,8 @@ curl -L -o /tmp/shipping.zip https://roboshop-artifacts.s3.amazonaws.com/shippin
 VALIDATE $? "downloaded"
 
 cd /app 
+rm -rf /app/*
+
 unzip /tmp/shipping.zip
 VALIDATE $? "unzipped"
 cd /app 

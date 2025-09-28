@@ -39,10 +39,10 @@ VALIDATE $? "looking"
 VALIDATE $? "create roboshop user"
 
 
-mkdir /app 
+mkdir -p /app
 VALIDATE $? "looking"
 
-curl -L -o /tmp/payment.zip https://roboshop-artifacts.s3.amazonaws.com/payment-v3.zip &>>$LOG_FILE
+curl -o /tmp/payment.zip https://roboshop-artifacts.s3.amazonaws.com/payment-v3.zip &>>$LOG_FILE
 VALIDATE $? "looking"
 cd /app 
 unzip /tmp/payment.zip &>>$LOG_FILE
