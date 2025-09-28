@@ -27,7 +27,7 @@ VALIDATE(){
         echo -e " $2 ... $G SUCCESS $N"
     fi
 }
-cp /rabbitmq.repo /etc/yum.repos.d/rabbitmq.repo
+cp rabbitmq.repo /etc/yum.repos.d/rabbitmq.repo
 VALIDATE $? "copied rabbitmq repo"
 dnf install rabbitmq-server -y &>>$LOGFILE
 VALIDATE $? "installed"
