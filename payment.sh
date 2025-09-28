@@ -48,7 +48,7 @@ VALIDATE $? "looking"
 cd /app 
 pip3 install -r requirements.txt &>>$LOG_FILE
 VALIDATE $? "looking"
-cp /payment.service /etc/systemd/system/payment.service &>>$LOG_FILE
+cp payment.service /etc/systemd/system/payment.service &>>$LOG_FILE
 VALIDATE $? "looking"
 systemctl daemon-reload
 systemctl enable payment 
