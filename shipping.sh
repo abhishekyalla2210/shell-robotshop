@@ -10,7 +10,6 @@ N="\e[0m"
 LOGS="/var/log/shell-robotshop"
 SCRIPTNAME=$(echo $0 | cut -d "." -f1)
 LOGFILE="$LOGS/$SCRIPTNAME.log"
-MYSQL_IP=mysql.abhishekdev.fun
 SCRIPT_DIR=$(pwd)
 
 mkdir -p $LOGS
@@ -35,7 +34,6 @@ VALIDATE $? "installed"
 id roboshop
 if [ $? -ne 0 ]; then
 useradd --system --home /app --shell /sbin/nologin --comment "roboshop system user" roboshop
-     
 else
     echo -e "user already exist...$Y skipping $N"
 
@@ -44,7 +42,7 @@ fi
 mkdir /app 
 VALIDATE $? "made directory"
 
-curl -L -o /tmp/shipping.zip https://roboshop-artifacts.s3.amazonaws.com/shipping-v3.zip &>>$LOGFILE
+curl -L -o /tmp/shipping.zip https://roboshop-artifacts.s3.amazonaws.com/shipping-v3.zip 
 VALIDATE $? "downloaded"
 
 cd /app 
@@ -53,14 +51,14 @@ rm -rf /app/*
 unzip /tmp/shipping.zip
 VALIDATE $? "unzipped"
 cd /app 
-mvn clean package &>>$LOGFILE
+mvn clean package 
 VALIDATE $? "cleaned"
 
 mv target/shipping-1.0.jar shipping.jar 
 VALIDATE $? "MVED"
 
 
-cp $SCRIPT_DIR/shipping.service /etc/systemd/system/shipping.service &>>$LOGFILE
+cp $SCRIPT_DIR/shipping.service /etc/systemd/system/shipping.service
 VALIDATE "copied shipping service" 
 
 systemctl daemon-reload
@@ -77,12 +75,12 @@ dnf install mysql -y &>>$LOGFILE
 
 VALIDATE $? "installed mysql"
 
-mysql -h $MYSQL_IP -uroot -pRoboShop@1 -e 'use cities' &>>$LOGFILE
+mysql -h mysql.abhishekdev.fun -uroot -pRoboShop@1 -e 'use cities' &>>$LOGFILE
 
 if [ $? -ne 0]; then
-    mysql -h $MYSQL_IP -uroot -pRoboShop@1 < /app/db/schema.sql &>>$LOGFILE
-    mysql -h $MYSQL_IP -uroot -pRoboShop@1 < /app/db/app-user.sql  &>>$LOGFILE
-    mysql -h $MYSQL_IP -uroot -pRoboShop@1 < /app/db/master-data.sql &>>$LOGFILE
+    mysql -h mysql.abhishekdev.fun -uroot -pRoboShop@1 < /app/db/schema.sql &>>$LOGFILE
+    mysql -h mysql.abhishekdev.fun -uroot -pRoboShop@1 < /app/db/app-user.sql  &>>$LOGFILE
+    mysql -h mysql.abhishekdev.fun -uroot -pRoboShop@1 < /app/db/master-data.sql &>>$LOGFILE
 else
     echo "shipping data already exist ...$Y skipping $N"
 fi
