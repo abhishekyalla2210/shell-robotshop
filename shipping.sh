@@ -47,6 +47,8 @@ VALIDATE $? "unzipped"
 cd /app 
 mvn clean package &>>$LOGFILE
 VALIDATE $? "cleaned"
+mv target/shipping-1.0.jar shipping.jar 
+
 
 cp $SCRIPT_DIR/shipping.service /etc/systemd/system/shipping.service &>>$LOGFILE
 VALIDATE "copied shipping service" 
