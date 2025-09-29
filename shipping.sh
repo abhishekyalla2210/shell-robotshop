@@ -38,7 +38,7 @@ else
     echo -e "user already exist...$Y skipping $N"
 
 fi
-#!/bin/bash
+
 
 if [ -d "/app" ]; then
     echo "Directory exists"
@@ -85,7 +85,7 @@ VALIDATE $? "installed mysql"
 mysql -h mysql.abhishekdev.fun -uroot -pRoboShop@1 -e 'use cities' &>>$LOGFILE
 
 if [ $? -ne 0]; then
- mysql -h mysql.abhishekdev.fun -uroot -pRoboShop@1 < /app/db/schema.sql 
+mysql -h mysql.abhishekdev.fun -uroot -pRoboShop@1 < /app/db/schema.sql 
 mysql -h mysql.abhishekdev.fun -uroot -pRoboShop@1 < /app/db/app-user.sql  
 mysql -h mysql.abhishekdev.fun -uroot -pRoboShop@1 < /app/db/master-data.sql 
 else
