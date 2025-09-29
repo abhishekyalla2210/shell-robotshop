@@ -70,6 +70,5 @@ systemctl enable cart
 VALIDATE $? "enabiling"
 systemctl start cart
 VALIDATE $? "started"
-echo -e "cart
- application setup ... $G SUCCESS $N"
+echo -e "cart application setup ... $G SUCCESS $N"
 
