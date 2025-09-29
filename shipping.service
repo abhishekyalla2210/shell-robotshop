@@ -3,12 +3,12 @@ Description=Shipping Service
 
 [Service]
 User=roboshop
+// highlight-start
+Environment=CART_ENDPOINT=cart.abhishekdev.fun:8080
 Environment=DB_HOST=mysql.abhishekdev.fun
-Environment=DB_USER=root
-Environment=DB_PASS=RoboShop@1
+// highlight-end
 ExecStart=/bin/java -jar /app/shipping.jar
 SyslogIdentifier=shipping
-Restart=always
 
 [Install]
 WantedBy=multi-user.target
