@@ -45,19 +45,20 @@ else
 fi
 
 mkdir -p /app
-VALIDATE $? "looking"
+VALIDATE $? "make dire"
 
 curl -o /tmp/payment.zip https://roboshop-artifacts.s3.amazonaws.com/payment-v3.zip &>>$LOG_FILE
-VALIDATE $? "looking"
+VALIDATE $? "donwloading"
 cd /app
 rm -rf /app/*
 unzip /tmp/payment.zip &>>$LOG_FILE
-VALIDATE $? "looking"
+VALIDATE $? "unzipping"
 
 pip3 install -r requirements.txt &>>$LOG_FILE
-VALIDATE $? "looking"
+VALIDATE $? "installing pip3"
 cp $SCRIPT_DIR/payment.service /etc/systemd/system/payment.service &>>$LOG_FILE
 VALIDATE $? "looking"
 systemctl daemon-reload
 systemctl enable payment
 systemctl start payment
+VALIDATE $? "enabled"
