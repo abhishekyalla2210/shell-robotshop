@@ -12,7 +12,7 @@ LOGS="/var/log/shell-robotshop"
 SCRIPTNAME=$(echo $0 | cut -d "." -f1)
 LOG_FILE="$LOGS/$SCRIPTNAME.log"
 SCRIPT_DIR=$(pwd)
-MONGODB_HOST=mongodb.abhishekdev.fun
+
 
 
 mkdir -p $LOGS
