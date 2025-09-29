@@ -85,11 +85,11 @@ dnf install mysql -y &>>$LOGFILE
 VALIDATE $? "MySQL client installed"
 
 # 9. Load database schema if not present
-mysql -h mysql.abhishekdev.fun -uroot -p'RoboShop@1' -e 'USE cities;' &>>$LOGFILE
+mysql -h 172.31.20.251 -uroot -p'RoboShop@1' -e 'USE cities;' &>>$LOGFILE
 if [ $? -ne 0 ]; then
-    mysql -h mysql.abhishekdev.fun -uroot -p'RoboShop@1' < /app/db/schema.sql &>>$LOGFILE
-    mysql -h mysql.abhishekdev.fun -uroot -p'RoboShop@1' < /app/db/app-user.sql &>>$LOGFILE
-    mysql -h mysql.abhishekdev.fun -uroot -p'RoboShop@1' < /app/db/master-data.sql &>>$LOGFILE
+    mysql -h 172.31.20.251 -uroot -p'RoboShop@1' < /app/db/schema.sql &>>$LOGFILE
+    mysql -h 172.31.20.251 -uroot -p'RoboShop@1' < /app/db/app-user.sql &>>$LOGFILE
+    mysql -h 172.31.20.251 -uroot -p'RoboShop@1' < /app/db/master-data.sql &>>$LOGFILE
     VALIDATE $? "Database schema loaded"
 else
     echo -e "Shipping data already exists... $Y Skipping $N"
