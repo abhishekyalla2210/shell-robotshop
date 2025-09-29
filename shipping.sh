@@ -85,9 +85,9 @@ VALIDATE $? "installed mysql"
 mysql -h mysql.abhishekdev.fun -uroot -pRoboShop@1 -e 'use cities' &>>$LOGFILE
 
 if [ $? -ne 0]; then
-    mysql -h mysql.abhishekdev.fun -uroot -pRoboShop@1 < /app/db/schema.sql &>>$LOGFILE
-    mysql -h mysql.abhishekdev.fun -uroot -pRoboShop@1 < /app/db/app-user.sql  &>>$LOGFILE
-    mysql -h mysql.abhishekdev.fun -uroot -pRoboShop@1 < /app/db/master-data.sql &>>$LOGFILE
+ mysql -h mysql.abhishekdev.fun -uroot -pRoboShop@1 < /app/db/schema.sql 
+mysql -h mysql.abhishekdev.fun -uroot -pRoboShop@1 < /app/db/app-user.sql  
+mysql -h mysql.abhishekdev.fun -uroot -pRoboShop@1 < /app/db/master-data.sql 
 else
     echo "shipping data already exist ...$Y skipping $N"
 fi
