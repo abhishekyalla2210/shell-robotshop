@@ -38,7 +38,7 @@ VALIDATE $? "looking"
  id roboshop
 if [ $? -ne 0 ]; then
     useradd --system --home /app --shell /sbin/nologin --comment "roboshop system user" roboshop  &>>$LOG_FILE
-    VALIDATE $? "creating system user" 
+    VALIDATE $? "creating system user"
 else
     echo -e "user already exist...$Y skipping $N"
 
@@ -49,14 +49,15 @@ VALIDATE $? "looking"
 
 curl -o /tmp/payment.zip https://roboshop-artifacts.s3.amazonaws.com/payment-v3.zip &>>$LOG_FILE
 VALIDATE $? "looking"
-cd /app 
+cd /app
+rm -rf /app/*
 unzip /tmp/payment.zip &>>$LOG_FILE
 VALIDATE $? "looking"
-cd /app 
+
 pip3 install -r requirements.txt &>>$LOG_FILE
 VALIDATE $? "looking"
 cp $SCRIPT_DIR/payment.service /etc/systemd/system/payment.service &>>$LOG_FILE
 VALIDATE $? "looking"
 systemctl daemon-reload
-systemctl enable payment 
+systemctl enable payment
 systemctl start payment
